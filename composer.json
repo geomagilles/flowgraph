@@ -1,0 +1,21 @@
+{
+    "name": "geomagilles/flowgraph",
+    "description": "",
+    "authors": [
+        {
+            "name": "Gilles Barbier",
+            "email": "geomagilles@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "florianv/petrinet": "~1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Geomagilles\\Flowgraph": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
