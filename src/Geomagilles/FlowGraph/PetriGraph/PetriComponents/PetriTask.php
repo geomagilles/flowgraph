@@ -77,10 +77,12 @@ class PetriTask extends PetriBox implements PetriTaskInterface
 
             $settings = $point->getSettings();
             if ($settings[TaskInterface::TRIGGER_TRANSIENT]) {
-                    $transiant = $this->addTransition();
-                    $this->addArc($trigger, $transiant);
-                    $this->addArc($transiant, $idle);
-                    $this->addArc($idle, $transiant);
+                $transiant = $this->addTransition();
+                $this->addArc($trigger, $transiant);
+                $this->addArc($transiant, $idle);
+                $this->addArc($idle, $transiant);
+            } else {
+                $this->addArc($output, $trigger);
             }
 
             if ($name == TaskInterface::OUTPUT_RETRY) {
