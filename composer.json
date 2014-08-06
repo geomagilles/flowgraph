@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Geomagilles\\Flowgraph": "src/"
+            "Geomagilles\\FlowGraph": "src/"
         }
     },
     "minimum-stability": "stable"
