@@ -98,13 +98,8 @@ abstract class Point extends Element implements PointInterface
         return $this->arcs;
     }
 
-    public function countArcs()
-    {
-        return count($this->getArcs());
-    }
-
     public function hasAnyArc()
     {
-        return $this->countArcs() > 0;
+        return count($this->getArcs()) > 0;
     }
 }

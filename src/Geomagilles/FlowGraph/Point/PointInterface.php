@@ -64,13 +64,6 @@ interface PointInterface extends ElementInterface
     public function getArcs();
 
     /**
-     * Count the arcs related to this point.
-     *
-     * @return int
-     */
-    public function countArcs();
-
-    /**
      * Has the point at least one arc?
      *
      * @return boolean

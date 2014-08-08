@@ -10,9 +10,9 @@
 
 namespace Geomagilles\FlowGraph\Box;
 
-use Geomagilles\FlowGraph\Point\PointInterface;
 use Geomagilles\FlowGraph\Element\Element;
 use Geomagilles\FlowGraph\GraphInterface;
+use Geomagilles\FlowGraph\Point\PointInterface;
 use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
 use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
 use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
@@ -73,6 +73,23 @@ abstract class Box extends Element implements BoxInterface
         return false;
     }
 
+    public function addPoint(PointInterface $point)
+    {
+        if ($point->isInput()) {
+            return $this->addInputPoint($point);
+        } elseif ($point->isOutput()) {
+            return $this->addOutputPoint($point);
+        } elseif ($point->isTrigger()) {
+            return $this->addTriggerPoint($point);
+        } else {
+            throw new \Exception('Unkwnown point type');
+        }
+    }
+
+    //
+    // INPUT POINTS
+    //
+
     public function addInputPoint(InputPointInterface $point)
     {
         $name = $point->getName();
@@ -87,10 +104,6 @@ abstract class Box extends Element implements BoxInterface
 
         return $this;
     }
-
-    //
-    // INPUT POINTS
-    //
 
     public function createInputPoint($name = '')
     {
