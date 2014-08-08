@@ -11,6 +11,7 @@
 
 namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 
+use Geomagilles\FlowGraph\PetriGraph\Exceptions\TriggerNotFoundException;
 use Geomagilles\FlowGraph\Components\Wait\WaitInterface;
 use Geomagilles\FlowGraph\PetriGraph\factory\PetriBoxFactoryInterface;
 
@@ -79,10 +80,10 @@ class PetriWait extends PetriTask implements PetriWaitInterface
     {
         $place = $this->getPlace($name);
 
-        if ($place->isTrigger()) {
+        if ((! is_null($place)) && $place->isTrigger()) {
             return $place;
         } else {
-            throw new \LogicException(
+            throw new TriggerNotFoundException(
                 sprintf(
                     'No trigger place "%s" found in box "%s"',
                     $name,

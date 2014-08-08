@@ -12,6 +12,7 @@
 namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 
 use Geomagilles\FlowGraph\Components\Task\TaskInterface;
+use Geomagilles\FlowGraph\PetriGraph\Exceptions\OutputNotFoundException;
 use Geomagilles\FlowGraph\PetriGraph\factory\PetriBoxFactoryInterface;
 use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBox;
 use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBoxInterface;
@@ -114,10 +115,10 @@ class PetriTask extends PetriBox implements PetriBoxInterface
     {
         $place = $this->getPlace($name);
 
-        if ($place->isOutput()) {
+        if ((! is_null($place)) && $place->isOutput()) {
             return $place;
         } else {
-            throw new \LogicException(
+            throw new OutputNotFoundException(
                 sprintf(
                     'No output place "%s" found in box "%s"',
                     $name,
