@@ -11,9 +11,11 @@
 namespace Geomagilles\FlowGraph\Components\Task;
 
 use Geomagilles\FlowGraph\Box\Box;
+use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
+use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
 
 /**
- * Class representing an decision box.
+ * Class representing an task box.
  */
 class Task extends Box implements TaskInterface
 {
@@ -26,15 +28,23 @@ class Task extends Box implements TaskInterface
     public function createIO()
     {
         $this->createInputPoint();
-        $this->addCase(TaskInterface::OUTPUT_RETRY, true, true);
+        $this->withOutput(TaskInterface::OUTPUT_RETRY);
     }
 
-    public function addCase($name = '', $transient = true, $final = true)
+    public function addInputPoint(InputPointInterface $point)
     {
-        // new branch output point
-        $output = $this->createOutputPoint($name);
-        // store settings on new output point
-        $output->setSettings(array(TaskInterface::TRIGGER_TRANSIENT=>$transient, TaskInterface::TRIGGER_FINAL=>$final));
+        if (count($this->getInputPoints()) == 1) {
+            throw new \LogicException(sprintf('You can NOT add a new input to a task box "%s"', $this->getName()));
+        }
+        return parent::addInputPoint($point);
+    }
+
+    public function addTriggerPoint(TriggerPointInterface $point)
+    {
+        if (get_class($this) == __CLASS__) {
+            throw new \LogicException(sprintf('You can NOT add a trigger to a task box "%s"', $this->getName()));
+        }
+        return parent::addTriggerPoint($point);
     }
 
     public function hasJob()
@@ -50,6 +60,15 @@ class Task extends Box implements TaskInterface
     public function setJob($job)
     {
         $this->job = $job;
+        
+        return $this;
+    }
+
+    public function withOutput($name = '')
+    {
+        // new output point
+        $this->createOutputPoint($name);
+
         return $this;
     }
 }

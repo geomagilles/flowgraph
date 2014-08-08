@@ -14,10 +14,11 @@ namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 use Geomagilles\FlowGraph\Components\Task\TaskInterface;
 use Geomagilles\FlowGraph\PetriGraph\factory\PetriBoxFactoryInterface;
 use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBox;
+use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBoxInterface;
 
-class PetriTask extends PetriBox implements PetriTaskInterface
+class PetriTask extends PetriBox implements PetriBoxInterface
 {
-    /**
+   /**
      * The job transition
      * @var TransitionInterface
      */
@@ -45,7 +46,7 @@ class PetriTask extends PetriBox implements PetriTaskInterface
      * The name of 'retry' place
      * @var string
      */
-    const PLACE_RETRY = 'retry_';
+    const PLACE_RETRY = '_retry';
 
     public function __construct(TaskInterface $task, PetriBoxFactoryInterface $petriBoxFactory)
     {
@@ -70,31 +71,16 @@ class PetriTask extends PetriBox implements PetriTaskInterface
 
         foreach ($task->getOutputPoints() as $name => $point) {
 
-            $output = $this->getOutputTransition($name);
-            $trigger = $this->addTriggerPlace($name);
-            $this->addArc($after, $output);
-            $this->addArc($trigger, $output);
+            $transition = $this->getOutputTransition($name);
+            $this->addArc($after, $transition);
 
-            $settings = $point->getSettings();
-            if ($settings[TaskInterface::TRIGGER_TRANSIENT]) {
-                $transiant = $this->addTransition();
-                $this->addArc($trigger, $transiant);
-                $this->addArc($transiant, $idle);
-                $this->addArc($idle, $transiant);
-            } else {
-                $this->addArc($output, $trigger);
-            }
+            $place = $this->addOutputPlace($name);
+            $this->addArc($place, $transition);
 
             if ($name == TaskInterface::OUTPUT_RETRY) {
-                $this->addArc($output, $before);
+                $this->addArc($transition, $before);
             } else {
-                if ($settings[TaskInterface::TRIGGER_FINAL]) {
-                    // done
-                    $this->addArc($output, $idle);
-                } else {
-                    // still wainting
-                    $this->addArc($output, $after);
-                }
+                $this->addArc($transition, $idle);
             }
         }
 
@@ -112,16 +98,28 @@ class PetriTask extends PetriBox implements PetriTaskInterface
         $this->addTokenToPlace(self::PLACE_IDLE);
     }
 
-    public function fireTrigger($name)
+    public function fireOutput($name)
+    {
+        $place = $this->getOutputPlace($name);
+
+        $this->petri->addTokenToPlace($place);
+    }
+
+    /**
+     * Get output place by name.
+     * @param string $name
+     * @return placeInterface;
+     */
+    protected function getOutputPlace($name = '')
     {
         $place = $this->getPlace($name);
 
-        if ($place->isTrigger()) {
-            $this->petri->addTokenToPlace($place);
+        if ($place->isOutput()) {
+            return $place;
         } else {
             throw new \LogicException(
                 sprintf(
-                    'Place "%s" in box "%s" is not a trigger',
+                    'No output place "%s" found in box "%s"',
                     $name,
                     $this->box->getName()
                 )
@@ -130,29 +128,22 @@ class PetriTask extends PetriBox implements PetriTaskInterface
     }
 
     /**
-     * Create a retry arc between an output and 
+     * Create a place used as an output
      * $param string $name
      * @return placeInterface;
      */
-    protected function addRetryArc($name)
+    protected function addOutputPlace($name = '')
     {
-        $input  = $this->getInputTransition();
-        $output = $this->getOutputTransition($name);
-        if (! $output->hasAnyOutputArc()) {
-            $retry = $this->addPlace(self::PLACE_RETRY.$name);
-            $this->addArc($output, $retry);
-            $this->addArc($retry, $input);
-        }
+        return $this->addPlace($name)->setOutput();
     }
 
     /**
-     * Create a place used as a trigger
-     * $param string $name
-     * @return placeInterface;
+     * Get job Petri transition
+     * @return transitionInterface;
      */
-    protected function addTriggerPlace($name = '')
+    protected function getJobTransition()
     {
-        return $this->addPlace($name)->setTrigger(true);
+        return $this->jobTransition;
     }
 
     /**
@@ -167,15 +158,6 @@ class PetriTask extends PetriBox implements PetriTaskInterface
             $this->jobTransition->setJob($this->box->getJob());
         }
 
-        return $this->jobTransition;
-    }
-
-    /**
-     * Get job Petri transition
-     * @return transitionInterface;
-     */
-    protected function getJobTransition()
-    {
         return $this->jobTransition;
     }
 }

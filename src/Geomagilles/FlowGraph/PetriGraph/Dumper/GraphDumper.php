@@ -78,7 +78,7 @@ class GraphDumper implements DumperInterface
     {
         $box = $petriBox->getBox();
         $petrinet = $petriBox->getPetrinet();
-        $text = 'digraph ' . $this->getId($box) . " {\n";
+        $text = 'digraph "' . $this->getId($box) . '" {'."\n";
 
         if ($box->isGraph()) {
             foreach ($box->getBoxes() as $b) {

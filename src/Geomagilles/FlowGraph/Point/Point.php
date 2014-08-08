@@ -10,12 +10,15 @@
 
 namespace Geomagilles\FlowGraph\Point;
 
+use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
+use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
+use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
 use Geomagilles\FlowGraph\Point\PointInterface;
 use Geomagilles\FlowGraph\Box\BoxInterface;
 use Geomagilles\FlowGraph\Arc\ArcInterface;
 use Geomagilles\FlowGraph\Element\Element;
 
-class Point extends Element implements PointInterface
+abstract class Point extends Element implements PointInterface
 {
     /**
      * The box that owns this point.
@@ -37,6 +40,21 @@ class Point extends Element implements PointInterface
      * @var ArcInterface[]
      */
     protected $arcs = array();
+
+    public function isInput()
+    {
+        return $this instanceof InputPointInterface;
+    }
+
+    public function isOutput()
+    {
+        return $this instanceof OutputPointInterface;
+    }
+
+    public function isTrigger()
+    {
+        return $this instanceof TriggerPointInterface;
+    }
 
     public function setBox(BoxInterface $box)
     {

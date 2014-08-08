@@ -18,43 +18,10 @@ use Geomagilles\FlowGraph\Box\BoxInterface;
 interface TaskInterface extends BoxInterface
 {
     /**
-     * Name for failed output 
-     * @var string
-     */
-    const OUTPUT_FAILED = '__failed';
-
-   /**
-     * Name for timed out output 
-     * @var string
-     */
-    const OUTPUT_TIMEDOUT = '__timedout';
-
-    /**
      * Name for retry output 
      * @var string
      */
     const OUTPUT_RETRY = '__retry';
-
-    /**
-     * Keyword for transient trigger 
-     * @var string
-     */
-    const TRIGGER_TRANSIENT = 'transient';
-
-    /**
-     * Keyword for final trigger 
-     * @var string
-     */
-    const TRIGGER_FINAL = 'final';
-
-    /**
-     * Add case.
-     * @param string  $name
-     * @param boolean $transient
-     * @param boolean $final
-     * @throws \LogicException
-     */
-    public function addCase($name = '', $transient = true, $final = true);
 
     /**
      * Has a job?
@@ -74,4 +41,11 @@ interface TaskInterface extends BoxInterface
      * @return self
      */
     public function setJob($job);
+
+    /**
+     * Add output.
+     * @param string  $name
+     * @throws \LogicException
+     */
+    public function withOutput($name = '');
 }

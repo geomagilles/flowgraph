@@ -18,6 +18,7 @@ use Geomagilles\FlowGraph\PetriGraph\PetriGraph;
 use Geomagilles\FlowGraph\PetriGraph\PetriComponents\PetriBegin;
 use Geomagilles\FlowGraph\PetriGraph\PetriComponents\PetriEnd;
 use Geomagilles\FlowGraph\PetriGraph\PetriComponents\PetriTask;
+use Geomagilles\FlowGraph\PetriGraph\PetriComponents\PetriWait;
 use Geomagilles\FlowGraph\PetriGraph\PetriComponents\PetriSynchronizer;
 
 use Geomagilles\FlowGraph\Box\BoxInterface;
@@ -25,6 +26,7 @@ use Geomagilles\FlowGraph\GraphInterface;
 use Geomagilles\FlowGraph\Components\Begin\BeginInterface;
 use Geomagilles\FlowGraph\Components\End\EndInterface;
 use Geomagilles\FlowGraph\Components\Task\TaskInterface;
+use Geomagilles\FlowGraph\Components\Wait\WaitInterface;
 use Geomagilles\FlowGraph\Components\Synchronizer\SynchronizerInterface;
 
 class PetriBoxFactory implements PetriBoxFactoryInterface
@@ -57,6 +59,8 @@ class PetriBoxFactory implements PetriBoxFactoryInterface
             return $this->createPetriEnd($box);
         } elseif ($f->isTask($box)) {
             return $this->createPetriTask($box);
+        } elseif ($f->isWait($box)) {
+            return $this->createPetriWait($box);
         } elseif ($f->isSynchronizer($box)) {
             return $this->createPetriSynchronizer($box);
         }
@@ -88,6 +92,11 @@ class PetriBoxFactory implements PetriBoxFactoryInterface
     public function createPetriTask(TaskInterface $task)
     {
         return new PetriTask($task, $this);
+    }
+
+    public function createPetriWait(WaitInterface $wait)
+    {
+        return new PetriWait($wait, $this);
     }
 
     public function createPetriSynchronizer(SynchronizerInterface $synchronizer)

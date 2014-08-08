@@ -10,16 +10,22 @@
 
 namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 
-use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBoxInterface;
-
 /**
  * Represents a petri task.
  */
-interface PetriTaskInterface extends PetriBoxInterface
+interface PetriWaitInterface extends PetriTaskInterface
 {
     /**
-     * Fire an output
+     * Fire a trigger
      * @param string $name 
      */
-    public function fireOutput($name);
+    public function fireTrigger($name);
+
+    /**
+     * Get trigger Petri transition by name
+     * @param string $name
+     * @throws \LogicException
+     * @return transitionInterface;
+     */
+    public function getTriggerTransition($name = '');
 }

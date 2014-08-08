@@ -25,6 +25,12 @@ interface PetriBoxInterface
     public function getPetriNet();
 
     /**
+     * reset petri box state
+     * @return self;
+     */
+    public function resetState();
+
+    /**
      * Get this petri box state
      * @return array;
      */

@@ -28,10 +28,15 @@ class PetriEnd extends PetriBox implements PetriBoxInterface
     {
         parent::__construct($end, $petriBoxFactory);
         // place
-        $end = $this->addPlace(self::PLACE_END)->setEnd(true);
+        $end = $this->addEndPlace();
         // arc
         $this->addArc($this->getInputTransition(), $end);
         // reset state
         $this->resetState();
+    }
+
+    protected function addEndPlace()
+    {
+        return $this->addPlace(self::PLACE_END)->setEnd(true);
     }
 }

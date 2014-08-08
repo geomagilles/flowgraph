@@ -35,57 +35,38 @@ interface GraphBuilderInterface
      * @param string $name
      * @return GraphInterface
      */
-    public function addGraph($name);
+    public function graph($name);
 
     /**
      * Add a synchronize to this graph
      * @return SynchronizerInterface
      */
-    public function addSynchronizer();
+    public function synchronizer();
 
     /**
      * Add a job to this graph
      * @param string $def
-     * @param array $cases
      * @return JobInterface
      */
-    public function addTask($job, $cases = array());
+    public function task($job);
 
     /**
      * Add a Begin to this graph
      * @return BeginInterface
      */
-    public function addBegin();
+    public function begin();
 
     /**
      * Add an End to this graph
      * @return EndInterface
      */
-    public function addEnd();
+    public function end();
 
     /**
-     * Add an arc to this graph
-     * @param BoxInterface $begin
-     * @param BoxInterface $end
-     * @param string $outputName
-     * @param string $inputName
-     * @return ArcInterface
+     * Connect two boxes by an arc
+     * @param array|BoxInterface $begin
+     * @param array|BoxInterface $end
+     * @return self
      */
-    public function addArc(BoxInterface $begin, BoxInterface $end, $outputName = '', $inputName = '');
-
-    /**
-     * Add an input point from a subjascent box
-     * @param PointInterface $point
-     * @param string $name
-     * @return PointInterface
-     */
-    public function addInputPoint(PointInterface $point, $name = '');
-
-    /**
-     * Add an output point from a subjascent box
-     * @param PointInterface $point
-     * @param string $name
-     * @return PointInterface
-     */
-    public function addOutputPoint(PointInterface $point, $name = '');
+    public function connect($begin, $end);
 }

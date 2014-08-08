@@ -10,10 +10,7 @@
 
 namespace Geomagilles\FlowGraph\Factory;
 
-use Geomagilles\FlowGraph\Arc\ArcInterface;
 use Geomagilles\FlowGraph\Point\PointInterface;
-use Geomagilles\FlowGraph\Box\BoxInterface;
-use Geomagilles\FlowGraph\GraphInterface;
 
 /**
  * Class for building new instances of flowchart components.
@@ -42,54 +39,70 @@ interface GraphFactoryInterface
      * @param PointInterface $beginPoint
      * @param PointInterface $endPoint
      * @param string $name
-     * @return ArcInterface
+     * @return Geomagilles\FlowGraph\Arc\ArcInterface
      */
     public function createArc(PointInterface $beginPoint, PointInterface $endPoint, $name = '');
 
     /**
-     * Create a new Point.
+     * Create a new InputPoint.
      * @param string $name
-     * @return PointInterface
+     * @return Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface
      */
-    public function createPoint($name = '');
+    public function createInputPoint($name = '');
+
+    /**
+     * Create a new OutputPoint.
+     * @param string $name
+     * @return Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface
+     */
+    public function createOutputPoint($name = '');
+
+        /**
+     * Create a new TriggerPoint.
+     * @param string $name
+     * @return Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface
+     */
+    public function createTriggerPoint($name = '');
 
     /**
      * Create a new Graph.
      * @param string $name
-     * @param boolean $build
-     * @return GraphInterface
+     * @return Geomagilles\FlowGraph\GraphInterface
      */
     public function createGraph($name = '');
 
     /**
      * Create a new Begin box.
      * @param string $name
-     * @param boolean $build
-     * @return BeginInterface
+     * @return Geomagilles\FlowGraph\Components\Begin\BeginInterface
      */
     public function createBegin($name = '');
 
     /**
      * Create a new End box.
      * @param string $name
-     * @param boolean $build
-     * @return EndInterface
+     * @return Geomagilles\FlowGraph\Components\End\EndInterface
      */
     public function createEnd($name = '');
 
     /**
      * Create a new Task box.
      * @param string $name
-     * @param boolean $build
-     * @return DecisionInterface
+     * @return Geomagilles\FlowGraph\Components\Task\TaskInterface
      */
     public function createTask($name = '');
 
     /**
+     * Create a new Wait box.
+     * @param string $name
+     * @return Geomagilles\FlowGraph\Components\Wait\WaitInterface
+     */
+    public function createWait($name = '');
+
+    /**
      * Create a new Synchronizer box.
      * @param string $name
-     * @param boolean $build
-     * @return SynchronizerInterface
+     * @return Geomagilles\FlowGraph\Components\Synchronizer\SynchronizerInterface
      */
     public function createSynchronizer($name = '');
 }

@@ -13,6 +13,9 @@ namespace Geomagilles\FlowGraph\Box;
 use Geomagilles\FlowGraph\Point\PointInterface;
 use Geomagilles\FlowGraph\Element\Element;
 use Geomagilles\FlowGraph\GraphInterface;
+use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
+use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
+use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
 
 /**
  * The Box class.
@@ -64,7 +67,7 @@ abstract class Box extends Element implements BoxInterface
         return false;
     }
 
-    public function addInputPoint(PointInterface $point)
+    public function addInputPoint(InputPointInterface $point)
     {
         $name = $point->getName();
         if (! $this->hasInputPoint($name)) {
@@ -79,32 +82,13 @@ abstract class Box extends Element implements BoxInterface
         return $this;
     }
 
-    public function addOutputPoint(PointInterface $point)
-    {
-        $name = $point->getName();
-        if (! $this->hasOutputPoint($name)) {
-            $this->outputPoints[$name] = $point;
-            $point->setBox($this);
-        } else {
-            throw new \LogicException(
-                sprintf('Box "%s" already has an output points with name "%s"', $this->getName(), $name)
-            );
-        }
-
-        return $this;
-    }
-    
-    public function createOutputPoint($name = '')
-    {
-        $point = $this->factory->createPoint($name);
-        $this->addOutputPoint($point);
-        
-        return $point;
-    }
+    //
+    // INPUT POINTS
+    //
 
     public function createInputPoint($name = '')
     {
-        $point = $this->factory->createPoint($name);
+        $point = $this->factory->createInputPoint($name);
         $this->addInputPoint($point);
 
         return $point;
@@ -113,11 +97,6 @@ abstract class Box extends Element implements BoxInterface
     public function getInputPoints()
     {
         return $this->inputPoints;
-    }
-
-    public function hasAnyInputPoint()
-    {
-        return count($this->inputPoints) > 0;
     }
 
     public function hasInputPoint($name = '')
@@ -135,14 +114,36 @@ abstract class Box extends Element implements BoxInterface
         );
     }
 
+    //
+    // OUTPUT POINTS
+    //
+
+    public function addOutputPoint(OutputPointInterface $point)
+    {
+        $name = $point->getName();
+        if (! $this->hasOutputPoint($name)) {
+            $this->outputPoints[$name] = $point;
+            $point->setBox($this);
+        } else {
+            throw new \LogicException(
+                sprintf('Box "%s" already has an output points with name "%s"', $this->getName(), $name)
+            );
+        }
+
+        return $this;
+    }
+
+    public function createOutputPoint($name = '')
+    {
+        $point = $this->factory->createOutputPoint($name);
+        $this->addOutputPoint($point);
+        
+        return $point;
+    }
+
     public function getOutputPoints()
     {
         return $this->outputPoints;
-    }
-
-    public function hasAnyOutputPoint()
-    {
-        return count($this->outputPoints) > 0;
     }
 
     public function hasOutputPoint($name = '')
@@ -158,5 +159,69 @@ abstract class Box extends Element implements BoxInterface
         throw new \LogicException(
             sprintf('Box "%s" does not have any output point with name "%s"', $this->getName(), $name)
         );
+    }
+
+    //
+    // TRIGGER POINTS
+    //
+
+    public function addTriggerPoint(TriggerPointInterface $point)
+    {
+        $name = $point->getName();
+        if (! $this->hasTriggerPoint($name)) {
+            $this->triggerPoints[$name] = $point;
+            $point->setBox($this);
+        } else {
+            throw new \LogicException(
+                sprintf('Box "%s" already has a trigger point with name "%s"', $this->getName(), $name)
+            );
+        }
+
+        return $this;
+    }
+
+    public function createTriggerPoint($name = '')
+    {
+        $point = $this->factory->createTriggerPoint($name);
+        $this->addTriggerPoint($point);
+
+        return $point;
+    }
+
+    public function getTriggerPoints()
+    {
+        return $this->triggerPoints;
+    }
+
+    public function hasTriggerPoint($name = '')
+    {
+        return isset($this->triggerPoints[$name]);
+    }
+
+    public function getTriggerPoint($name = '')
+    {
+        if ($this->hasTriggerPoint($name)) {
+            return $this->triggerPoints[$name];
+        }
+        throw new \LogicException(
+            sprintf('Box "%s" does not have any trigger point with name "%s"', $this->getName(), $name)
+        );
+    }
+
+    // HELPERS
+
+    public function input($name)
+    {
+        return array($this, $this->getInputPoint($name));
+    }
+
+    public function output($name)
+    {
+        return array($this, $this->getOutputPoint($name));
+    }
+
+    public function trigger($name)
+    {
+        return array($this, $this->getTriggerPoint($name));
     }
 }

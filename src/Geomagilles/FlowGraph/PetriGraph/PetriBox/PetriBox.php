@@ -58,10 +58,10 @@ abstract class PetriBox implements PetriBoxInterface
         $this->box = $box;
         $this->petri = $petriBoxFactory->getPetriBuilder();
 
-        // create transitions associated to output points
-        $this->createOutputTransitions();
         // create transitions associated to input points
         $this->createInputTransitions();
+        // create transitions associated to output points
+        $this->createOutputTransitions();
     }
 
     public function getBox()
@@ -74,6 +74,8 @@ abstract class PetriBox implements PetriBoxInterface
         foreach ($this->places as $name => $place) {
             $this->petri->setTokenToPlace($place, 0);
         }
+
+        return $this;
     }
 
     public function getState()
@@ -84,6 +86,7 @@ abstract class PetriBox implements PetriBoxInterface
                 self::PLACE_NAME => $name,
                 self::PLACE_TOKEN => count($place));
         }
+        
         return $state;
     }
 

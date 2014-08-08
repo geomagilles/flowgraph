@@ -30,7 +30,7 @@ class PetriBegin extends PetriBox implements PetriBoxInterface
     {
         parent::__construct($begin, $petriBoxFactory);
         // place
-        $begin = $this->addPlace(self::PLACE_BEGIN)->setBegin(true);
+        $begin = $this->addBeginPlace();
         // arc
         $this->addArc($begin, $this->getOutputTransition());
         // reset state
@@ -41,7 +41,13 @@ class PetriBegin extends PetriBox implements PetriBoxInterface
     {
         // reset all tokens
         parent::resetState();
+        
         // add a token to begin place
         $this->addTokenToPlace(self::PLACE_BEGIN);
+    }
+
+    protected function addBeginPlace()
+    {
+        return $this->addPlace(self::PLACE_BEGIN)->setBegin(true);
     }
 }

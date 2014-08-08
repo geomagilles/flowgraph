@@ -47,60 +47,81 @@ class GraphBuilder implements GraphBuilderInterface
         return $this->graph;
     }
 
-    public function addGraph($name)
+    public function graph($name)
     {
         $graph = $this->factory->createGraph($name);
         $this->graph->addBox($graph);
+        
         return $graph;
     }
 
-    public function addSynchronizer()
+    public function synchronizer()
     {
         $synchronizer = $this->factory->createSynchronizer($this->createName());
         $this->graph->addBox($synchronizer);
+        
         return $synchronizer;
     }
 
-    public function addTask($job, $cases = [''])
+    public function task($job)
     {
-        $task = $this->factory->createTask($this->createName());
-        $task->setJob($job);
-        foreach ($cases as $name) {
-            $task->addCase($name);
-        }
+        $task = $this->factory->createTask($this->createName())
+            ->setJob($job)
+            ->withOutput('');
         $this->graph->addBox($task);
+        
         return $task;
     }
 
-    public function addBegin()
+    public function wait($job = null)
+    {
+        $wait = $this->factory->createWait($this->createName())
+            ->setJob($job)
+            ->withOutput('');
+        $this->graph->addBox($wait);
+        
+        return $wait;
+    }
+
+    public function begin()
     {
         $begin = $this->factory->createBegin($this->createName());
         $this->graph->addBox($begin);
+        
         return $begin;
     }
 
-    public function addEnd()
+    public function end()
     {
         $end = $this->factory->createEnd($this->createName());
         $this->graph->addBox($end);
+        
         return $end;
     }
 
-    public function addArc(BoxInterface $begin, BoxInterface $end, $outputName = '', $inputName = '')
+    public function connect($begin, $end)
     {
+        if (! is_array($begin)) {
+            $begin = $begin->output('');
+        }
+        if (! is_array($end)) {
+            $end = $end->input('');
+        }
+
         // get output point
-        $outputPoint = $begin->getOutputPoint($outputName);
+        $outputPoint = $begin[1];
+
         // get input point
-        if ($this->factory->isSynchronizer($end)) {
-            $inputPoint = $end->createInputPoint($inputName);
+        if ($this->factory->isSynchronizer($end[0])) {
+            $inputPoint = $end[0]->createInputPoint($end[1]);
         } else {
-            $inputPoint = $end->getInputPoint($inputName);
+            $inputPoint = $end[1];
         }
         // create and add arc
         $arc = $this->factory->createArc($outputPoint, $inputPoint);
         $this->graph->addArc($arc);
 
-        return $arc;
+        return $this;
     }
 
     /**

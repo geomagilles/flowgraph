@@ -22,7 +22,19 @@ class GraphFactory implements GraphFactoryInterface
      * The Point type
      * @var string
      */
-    const POINT = 'POINT';
+    const INPUT_POINT = 'INPUT';
+
+    /**
+     * The Point type
+     * @var string
+     */
+    const OUTPUT_POINT = 'OUTPUT';
+
+    /**
+     * The Point type
+     * @var string
+     */
+    const TRIGGER_POINT = 'TRIGGER';
 
     /**
      * The Arc type
@@ -49,10 +61,16 @@ class GraphFactory implements GraphFactoryInterface
     const END = 'END';
 
     /**
-     * The Job type
+     * The Task type
      * @var string
      */
     const TASK = 'TASK';
+
+    /**
+     * The Wait type
+     * @var string
+     */
+    const WAIT = 'WAIT';
 
     /**
      * The Synchronizer type
@@ -71,13 +89,16 @@ class GraphFactory implements GraphFactoryInterface
         $this->eventDispatcher = is_null($eventDispatcher) ? new EventDispatcher() : $eventDispatcher;
 
         $this->typeClass = array(
-            self::POINT        => 'Geomagilles\FlowGraph\Point\Point',
-            self::ARC          => 'Geomagilles\FlowGraph\Arc\Arc',
-            self::GRAPH        => 'Geomagilles\FlowGraph\Graph',
-            self::BEGIN        => 'Geomagilles\FlowGraph\Components\Begin\Begin',
-            self::END          => 'Geomagilles\FlowGraph\Components\End\End',
-            self::TASK         => 'Geomagilles\FlowGraph\Components\Task\Task',
-            self::SYNCHRONIZER => 'Geomagilles\FlowGraph\Components\Synchronizer\Synchronizer');
+            self::INPUT_POINT   => 'Geomagilles\FlowGraph\Point\InputPoint\InputPoint',
+            self::OUTPUT_POINT  => 'Geomagilles\FlowGraph\Point\OutputPoint\OutputPoint',
+            self::TRIGGER_POINT => 'Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPoint',
+            self::ARC           => 'Geomagilles\FlowGraph\Arc\Arc',
+            self::GRAPH         => 'Geomagilles\FlowGraph\Graph',
+            self::BEGIN         => 'Geomagilles\FlowGraph\Components\Begin\Begin',
+            self::END           => 'Geomagilles\FlowGraph\Components\End\End',
+            self::TASK          => 'Geomagilles\FlowGraph\Components\Task\Task',
+            self::WAIT          => 'Geomagilles\FlowGraph\Components\Wait\Wait',
+            self::SYNCHRONIZER  => 'Geomagilles\FlowGraph\Components\Synchronizer\Synchronizer');
     }
 
     public function getEventDispatcher()
@@ -118,19 +139,49 @@ class GraphFactory implements GraphFactoryInterface
         return $arc;
     }
 
-    public function isPoint($obj)
+    public function isInputPoint($obj)
     {
-        return $this->getType($obj) === self::POINT;
+        return $this->getType($obj) === self::INPUT_POINT;
     }
 
-    public function newPoint($name = '')
+    public function newInputPoint($name = '')
     {
-        return $this->newObject(self::POINT, $name);
+        return $this->newObject(self::INPUT_POINT, $name);
     }
 
-    public function createPoint($name = '')
+    public function createInputPoint($name = '')
     {
-        return $this->createObject(self::POINT, $name);
+        return $this->createObject(self::INPUT_POINT, $name);
+    }
+
+    public function isOutputPoint($obj)
+    {
+        return $this->getType($obj) === self::OUTPUT_POINT;
+    }
+
+    public function newOutputPoint($name = '')
+    {
+        return $this->newObject(self::OUTPUT_POINT, $name);
+    }
+
+    public function createOutputPoint($name = '')
+    {
+        return $this->createObject(self::OUTPUT_POINT, $name);
+    }
+ 
+    public function isTriggerPoint($obj)
+    {
+        return $this->getType($obj) === self::TRIGGER_POINT;
+    }
+
+    public function newTriggerPoint($name = '')
+    {
+        return $this->newObject(self::TRIGGER_POINT, $name);
+    }
+
+    public function createTriggerPoint($name = '')
+    {
+        return $this->createObject(self::TRIGGER_POINT, $name);
     }
 
     public function isGraph($obj)
@@ -191,6 +242,21 @@ class GraphFactory implements GraphFactoryInterface
     public function createTask($name = '')
     {
         return $this->createObject(self::TASK, $name);
+    }
+
+    public function isWait($obj)
+    {
+        return $this->getType($obj) === self::WAIT;
+    }
+
+    public function newWait($name = '')
+    {
+        return $this->newObject(self::WAIT, $name);
+    }
+
+    public function createWait($name = '')
+    {
+        return $this->createObject(self::WAIT, $name);
     }
 
     public function isSynchronizer($obj)
