@@ -53,7 +53,6 @@ abstract class Element implements ElementInterface
     {
         $this->factory = $factory;
         $this->setName($name);
-        $this->setId(uniqid());
     }
 
     public function getEventDispatcher()
