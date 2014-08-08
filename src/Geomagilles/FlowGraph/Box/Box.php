@@ -35,6 +35,12 @@ abstract class Box extends Element implements BoxInterface
     protected $outputPoints = array();
 
     /**
+     * The trigger points.
+     * @var PointInterface[]
+     */
+    protected $triggerPoints = array();
+
+    /**
      * The graph owning this box.
      * @var GraphInterface|null
      */
