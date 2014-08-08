@@ -163,6 +163,12 @@ class Engine implements EngineInterface
         return $this;
     }
 
+    public function fireOutput($boxId, $name)
+    {
+        $petriBox = $this->petriGraph->getPetriBoxById($boxId);
+        $petriBox->fireOutput($name);
+    }
+
     public function fireTrigger($boxId, $name)
     {
         $petriBox = $this->petriGraph->getPetriBoxById($boxId);
