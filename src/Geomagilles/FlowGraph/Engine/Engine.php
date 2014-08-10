@@ -140,7 +140,7 @@ class Engine implements EngineInterface
     public function run()
     {
         // dispatch ENGINE_START event
-        $this->engineStart()
+        $this->engineStart();
         // run engine
         $this->engine->setMode(PetrinetEngine::MODE_CONTINUOUS);
         $this->engine->start();
