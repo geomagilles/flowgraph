@@ -11,7 +11,7 @@
 namespace Geomagilles\FlowGraph\Components\Wait;
 
 use Geomagilles\FlowGraph\Components\Task\TaskInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 /**
  * Represents a Wait box.
@@ -31,5 +31,5 @@ interface WaitInterface extends TaskInterface
      * @throws \LogicException
      * @return self
      */
-    public function withTrigger($name = '', $transient = true);
+    public function withTrigger($event, $job, array $settings);
 }

@@ -11,7 +11,7 @@
 namespace Geomagilles\FlowGraph\Tests\Graph\Point;
 
 use Geomagilles\FlowGraph\Tests\BaseTest;
-use Geomagilles\FlowGraph\Point\Point;
+use Geomagilles\FlowGraph\Points\Point;
 
 /**
  * Test class for Point.
@@ -42,7 +42,7 @@ class PointTest extends BaseTest
     
     public function testGetSetSubjascentPoint()
     {
-        $subj = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $subj = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $point = new Point();
         $this->assertNull($point->getSubjacentPoint());
         $point->setSubjacentPoint($subj);

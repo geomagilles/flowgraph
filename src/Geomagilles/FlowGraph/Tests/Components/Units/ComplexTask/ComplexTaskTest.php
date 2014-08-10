@@ -34,18 +34,18 @@ class ComplexTaskTest extends BaseTest
 
     public function testConstructorPointsCreation()
     {
-        $input           = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $onTaskCompleted = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input           = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $onTaskCompleted = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $onTaskCompleted
             ->expects($this->any())
             ->method('getName')
             ->will($this->returnValue(Decision::TASK_COMPLETED));
-        $onTaskFailed    = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $onTaskFailed    = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $onTaskFailed
             ->expects($this->any())
             ->method('getName')
             ->will($this->returnValue(Decision::TASK_FAILED));
-        $onTaskTimeOut   = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $onTaskTimeOut   = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $onTaskTimeOut
             ->expects($this->any())
             ->method('getName')

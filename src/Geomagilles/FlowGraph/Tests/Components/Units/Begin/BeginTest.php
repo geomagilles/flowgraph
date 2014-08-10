@@ -34,7 +34,7 @@ class BeginTest extends BaseTest
 
     public function testConstructorPointsCreation()
     {
-        $point = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $factory
             ->expects($this->once())

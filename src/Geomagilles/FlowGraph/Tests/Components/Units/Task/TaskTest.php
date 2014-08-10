@@ -34,8 +34,8 @@ class TaskTest extends BaseTest
 
     public function testConstructorPointsCreation()
     {
-        $point1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $factory
             ->expects($this->at(0))

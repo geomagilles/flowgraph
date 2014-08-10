@@ -12,41 +12,25 @@ namespace Geomagilles\FlowGraph\Box;
 
 use Geomagilles\FlowGraph\Element\Element;
 use Geomagilles\FlowGraph\GraphInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
 
 /**
  * The Box class.
  */
 abstract class Box extends Element implements BoxInterface
 {
-    /**
-     * The input points.
-     * @var PointInterface[]
-     */
-    protected $inputPoints = array();
 
-    /**
-     * The output points.
-     * @var PointInterface[]
-     */
-    protected $outputPoints = array();
+    abstract public function createIO();
 
-    /**
-     * The trigger points.
-     * @var PointInterface[]
-     */
-    protected $triggerPoints = array();
+    // PARENT GRAPH
 
     /**
      * The graph owning this box.
-     * @var GraphInterface|null
+     * @var Geomagilles\FlowGraph\GraphInterface|null
      */
     protected $parentGraph = null;
-
-    abstract public function createIO();
 
     public function getParentGraph()
     {
@@ -58,37 +42,52 @@ abstract class Box extends Element implements BoxInterface
         $this->parentGraph = $graph;
     }
 
-    public function isGraph()
-    {
-        return ($this->factory->isGraph($this));
-    }
+    // INTROSPECTION
 
     public function getType()
     {
         return ($this->factory->getType($this));
     }
 
-    public function hasJob()
+    public function isGraph()
     {
-        return false;
+        return ($this->factory->isGraph($this));
     }
 
-    public function addPoint(PointInterface $point)
+    public function isBegin()
     {
-        if ($point->isInput()) {
-            return $this->addInputPoint($point);
-        } elseif ($point->isOutput()) {
-            return $this->addOutputPoint($point);
-        } elseif ($point->isTrigger()) {
-            return $this->addTriggerPoint($point);
-        } else {
-            throw new \Exception('Unkwnown point type');
-        }
+        return ($this->factory->isBegin($this));
+    }
+
+    public function isEnd()
+    {
+        return ($this->factory->isEnd($this));
+    }
+
+    public function isSynchronizer()
+    {
+        return ($this->factory->isSynchronizer($this));
+    }
+
+    public function isTask()
+    {
+        return ($this->factory->isTask($this));
+    }
+
+    public function isWait()
+    {
+        return ($this->factory->isWait($this));
     }
 
     //
     // INPUT POINTS
     //
+
+    /**
+     * The input points.
+     * @var Geomagilles\FlowGraph\PointsInterface[]
+     */
+    protected $inputPoints = array();
 
     public function addInputPoint(InputPointInterface $point)
     {
@@ -103,14 +102,6 @@ abstract class Box extends Element implements BoxInterface
         }
 
         return $this;
-    }
-
-    public function createInputPoint($name = '')
-    {
-        $point = $this->factory->createInputPoint($name);
-        $this->addInputPoint($point);
-
-        return $point;
     }
 
     public function getInputPoints()
@@ -137,6 +128,12 @@ abstract class Box extends Element implements BoxInterface
     // OUTPUT POINTS
     //
 
+    /**
+     * The output points.
+     * @var Geomagilles\FlowGraph\PointsInterface[]
+     */
+    protected $outputPoints = array();
+
     public function addOutputPoint(OutputPointInterface $point)
     {
         $name = $point->getName();
@@ -150,14 +147,6 @@ abstract class Box extends Element implements BoxInterface
         }
 
         return $this;
-    }
-
-    public function createOutputPoint($name = '')
-    {
-        $point = $this->factory->createOutputPoint($name);
-        $this->addOutputPoint($point);
-        
-        return $point;
     }
 
     public function getOutputPoints()
@@ -181,53 +170,24 @@ abstract class Box extends Element implements BoxInterface
     }
 
     //
-    // TRIGGER POINTS
+    // HELPERS
     //
 
-    public function addTriggerPoint(TriggerPointInterface $point)
+    public function hasJob()
     {
-        $name = $point->getName();
-        if (! $this->hasTriggerPoint($name)) {
-            $this->triggerPoints[$name] = $point;
-            $point->setBox($this);
+        return false;
+    }
+
+    public function addPoint(PointInterface $point)
+    {
+        if ($point->isInput()) {
+            return $this->addInputPoint($point);
+        } elseif ($point->isOutput()) {
+            return $this->addOutputPoint($point);
         } else {
-            throw new \LogicException(
-                sprintf('Box "%s" already has a trigger point with name "%s"', $this->getName(), $name)
-            );
+            throw new \Exception('Unkwnown point type');
         }
-
-        return $this;
     }
-
-    public function createTriggerPoint($name = '')
-    {
-        $point = $this->factory->createTriggerPoint($name);
-        $this->addTriggerPoint($point);
-
-        return $point;
-    }
-
-    public function getTriggerPoints()
-    {
-        return $this->triggerPoints;
-    }
-
-    public function hasTriggerPoint($name = '')
-    {
-        return isset($this->triggerPoints[$name]);
-    }
-
-    public function getTriggerPoint($name = '')
-    {
-        if ($this->hasTriggerPoint($name)) {
-            return $this->triggerPoints[$name];
-        }
-        throw new \LogicException(
-            sprintf('Box "%s" does not have any trigger point with name "%s"', $this->getName(), $name)
-        );
-    }
-
-    // HELPERS
 
     public function input($name)
     {
@@ -237,10 +197,5 @@ abstract class Box extends Element implements BoxInterface
     public function output($name)
     {
         return array($this, $this->getOutputPoint($name));
-    }
-
-    public function trigger($name)
-    {
-        return array($this, $this->getTriggerPoint($name));
     }
 }

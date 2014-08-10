@@ -15,7 +15,7 @@ use Geomagilles\FlowGraph\Factory\GraphFactoryInterface;
 use Geomagilles\FlowGraph\Factory\GraphFactory;
 use Geomagilles\FlowGraph\GraphInterface;
 use Geomagilles\FlowGraph\Box\BoxInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 class GraphBuilder implements GraphBuilderInterface
 {
@@ -63,21 +63,25 @@ class GraphBuilder implements GraphBuilderInterface
         return $synchronizer;
     }
 
-    public function task($job)
+    public function task($job, array $outputs = array(''))
     {
-        $task = $this->factory->createTask($this->createName())
-            ->setJob($job)
-            ->withOutput('');
+        $task = $this->factory->createTask($this->createName());
+        $task->setJob($job);
+        foreach ($outputs as $name) {
+            $task->addOutputPoint($this->factory->createOutputPoint($name));
+        }
         $this->graph->addBox($task);
         
         return $task;
     }
 
-    public function wait($job = null)
+    public function wait($job = null, array $outputs = array(''))
     {
-        $wait = $this->factory->createWait($this->createName())
-            ->setJob($job)
-            ->withOutput('');
+        $wait = $this->factory->createWait($this->createName());
+        $wait->setJob($job);
+        foreach ($outputs as $name) {
+            $wait->addOutputPoint($this->factory->createOutputPoint($name));
+        }
         $this->graph->addBox($wait);
         
         return $wait;
@@ -113,10 +117,11 @@ class GraphBuilder implements GraphBuilderInterface
 
         // get input point
         if ($this->factory->isSynchronizer($end[0])) {
-            $inputPoint = $end[0]->createInputPoint($end[1]);
+            $inputPoint = $end[0]->addInputPoint($this->factory->createInputPoint($end[1]));
         } else {
             $inputPoint = $end[1];
         }
+        
         // create and add arc
         $arc = $this->factory->createArc($outputPoint, $inputPoint);
         $this->graph->addArc($arc);

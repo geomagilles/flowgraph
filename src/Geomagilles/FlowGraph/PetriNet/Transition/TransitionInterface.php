@@ -13,7 +13,7 @@ namespace Geomagilles\FlowGraph\PetriNet\Transition;
 
 use Geomagilles\FlowGraph\Work\WorkInterface;
 use Geomagilles\FlowGraph\Box\BoxInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 interface TransitionInterface extends \Petrinet\Transition\TransitionInterface
 {

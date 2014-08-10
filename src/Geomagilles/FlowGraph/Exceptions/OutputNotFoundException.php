@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\PetriGraph\Exceptions;
+namespace Geomagilles\FlowGraph\Exceptions;
 
 class OutputNotFoundException extends \Exception
 {

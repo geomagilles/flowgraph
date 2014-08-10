@@ -31,8 +31,8 @@ class FlowGraphFactoryTest extends BaseTest
 
     public function testCreateArc()
     {
-        $p1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $p2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $p1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $p2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = new FlowGraphFactory();
         $element = $factory->createArc($p1, $p2);
         $this->assertSame('', $element->getName());
@@ -48,7 +48,7 @@ class FlowGraphFactoryTest extends BaseTest
         $this->assertSame('', $element->getName());
         $element = $factory->createPoint('new');
         $this->assertSame('new', $element->getName());
-        $this->assertInstanceOf('Geomagilles\FlowGraph\Point\PointInterface', $element);
+        $this->assertInstanceOf('Geomagilles\FlowGraph\Points\PointInterface', $element);
     }
 
     public function testCreateGraph()

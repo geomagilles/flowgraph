@@ -11,9 +11,9 @@
 namespace Geomagilles\FlowGraph\Components\End;
 
 use Geomagilles\FlowGraph\Box\Box;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Represents a end task in a graph.
@@ -22,7 +22,7 @@ class End extends Box implements EndInterface
 {
     public function createIO()
     {
-        $this->createInputPoint();
+        $this->addInputPoint($this->factory->createInputPoint());
     }
 
     public function addInputPoint(InputPointInterface $point)

@@ -11,9 +11,9 @@
 namespace Geomagilles\FlowGraph\Components\Begin;
 
 use Geomagilles\FlowGraph\Box\Box;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Represents a begin task in a graph.
@@ -22,7 +22,7 @@ class Begin extends Box implements BeginInterface
 {
     public function createIO()
     {
-        $this->createOutputPoint();
+        $this->addOutputPoint($this->factory->createOutputPoint());
     }
 
     public function addOutputPoint(OutputPointInterface $point)

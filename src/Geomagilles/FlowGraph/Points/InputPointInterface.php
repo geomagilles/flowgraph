@@ -8,10 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\Point\OutputPoint;
+namespace Geomagilles\FlowGraph\Points;
 
-use Geomagilles\FlowGraph\Point\Point;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
-class OutputPoint extends Point implements OutputPointInterface
+/**
+ * Interface for input point.
+ */
+interface InputPointInterface extends PointInterface
 {
+    
 }

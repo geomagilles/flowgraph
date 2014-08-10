@@ -13,10 +13,10 @@ namespace Geomagilles\FlowGraph;
 use Geomagilles\FlowGraph\Box\Box;
 use Geomagilles\FlowGraph\Box\BoxInterface;
 use Geomagilles\FlowGraph\Arc\ArcInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Class representing a sub-network of a FlowGraph.

@@ -8,9 +8,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\Point;
+namespace Geomagilles\FlowGraph\Points;
 
-use Geomagilles\FlowGraph\Point\PointInterface;
 use Geomagilles\FlowGraph\Box\BoxInterface;
 use Geomagilles\FlowGraph\Arc\ArcInterface;
 use Geomagilles\FlowGraph\Element\ElementInterface;

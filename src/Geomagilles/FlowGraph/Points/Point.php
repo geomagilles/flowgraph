@@ -8,12 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\Point;
+namespace Geomagilles\FlowGraph\Points;
 
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 use Geomagilles\FlowGraph\Box\BoxInterface;
 use Geomagilles\FlowGraph\Arc\ArcInterface;
 use Geomagilles\FlowGraph\Element\Element;
@@ -43,17 +42,12 @@ abstract class Point extends Element implements PointInterface
 
     public function isInput()
     {
-        return $this instanceof InputPointInterface;
+        return $this->factory->isInputPoint($this);
     }
 
     public function isOutput()
     {
-        return $this instanceof OutputPointInterface;
-    }
-
-    public function isTrigger()
-    {
-        return $this instanceof TriggerPointInterface;
+        return $this->factory->isOutputPoint($this);
     }
 
     public function setBox(BoxInterface $box)

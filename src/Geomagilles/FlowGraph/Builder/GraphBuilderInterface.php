@@ -17,7 +17,7 @@ use Geomagilles\FlowGraph\Components\Task\TaskInterface;
 use Geomagilles\FlowGraph\Components\Begin\BeginInterface;
 use Geomagilles\FlowGraph\Components\End\EndInterface;
 use Geomagilles\FlowGraph\Arc\ArcInterface;
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 /**
  * Interface for graphs.

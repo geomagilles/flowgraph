@@ -12,7 +12,7 @@
 namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 
 use Geomagilles\FlowGraph\Components\Task\TaskInterface;
-use Geomagilles\FlowGraph\PetriGraph\Exceptions\OutputNotFoundException;
+use Geomagilles\FlowGraph\Exceptions\OutputNotFoundException;
 use Geomagilles\FlowGraph\PetriGraph\factory\PetriBoxFactoryInterface;
 use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBox;
 use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBoxInterface;

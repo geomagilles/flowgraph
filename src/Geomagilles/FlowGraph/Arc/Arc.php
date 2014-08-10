@@ -10,7 +10,7 @@
 
 namespace Geomagilles\FlowGraph\Arc;
 
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 use Geomagilles\FlowGraph\Element\Element;
 
 /**

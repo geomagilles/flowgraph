@@ -38,8 +38,8 @@ class BoxTest extends BaseTest
 
     public function testInputPoint()
     {
-        $point1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $point2
             ->expects($this->any())
             ->method('getName')
@@ -67,8 +67,8 @@ class BoxTest extends BaseTest
      */
     public function testAddInputPointWithSameName()
     {
-        $point1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'addInputPoint', array($point1));
@@ -77,8 +77,8 @@ class BoxTest extends BaseTest
 
     public function testOutputPoint()
     {
-        $point1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $point2
             ->expects($this->any())
             ->method('getName')
@@ -106,8 +106,8 @@ class BoxTest extends BaseTest
      */
     public function testAddOutputPointWithSameName()
     {
-        $point1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'addOutputPoint', array($point1));
@@ -151,7 +151,7 @@ class BoxTest extends BaseTest
             ->method('createBuilder')
             ->will($this->returnValue($builder));
 
-        $point = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'addInputPoint', array($point));
         $box->getPetriBuilder();
@@ -172,7 +172,7 @@ class BoxTest extends BaseTest
             ->method('createBuilder')
             ->will($this->returnValue($builder));
 
-        $point = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'addOutputPoint', array($point));
         $box->getPetriBuilder();
@@ -185,7 +185,7 @@ class BoxTest extends BaseTest
      */
     public function testGetTransitionFromInputPointWithoutGetPetriBuilder()
     {
-        $point = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'getTransitionFromInputPoint', array($point));
@@ -196,7 +196,7 @@ class BoxTest extends BaseTest
      */
     public function testGetTransitionFromOutputPointWithoutGetPetriBuilder()
     {
-        $point = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $factory = $this->getMock('Geomagilles\FlowGraph\Factory\Flow\GraphFactoryInterface');
         $box = $this->getMockForAbstractClass(self::TESTED_CLASS, array('', $factory));
         $this->invokeMethod($box, 'getTransitionFromOutputPoint', array($point));

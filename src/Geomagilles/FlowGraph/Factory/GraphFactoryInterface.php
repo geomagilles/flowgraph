@@ -10,7 +10,7 @@
 
 namespace Geomagilles\FlowGraph\Factory;
 
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 /**
  * Class for building new instances of flowchart components.
@@ -46,23 +46,16 @@ interface GraphFactoryInterface
     /**
      * Create a new InputPoint.
      * @param string $name
-     * @return Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface
+     * @return Geomagilles\FlowGraph\Points\InputPointInterface
      */
     public function createInputPoint($name = '');
 
     /**
      * Create a new OutputPoint.
      * @param string $name
-     * @return Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface
+     * @return Geomagilles\FlowGraph\Points\OutputPointInterface
      */
     public function createOutputPoint($name = '');
-
-        /**
-     * Create a new TriggerPoint.
-     * @param string $name
-     * @return Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface
-     */
-    public function createTriggerPoint($name = '');
 
     /**
      * Create a new Graph.

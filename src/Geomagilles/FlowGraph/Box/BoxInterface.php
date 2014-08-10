@@ -10,9 +10,9 @@
 
 namespace Geomagilles\FlowGraph\Box;
 
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 use Geomagilles\FlowGraph\Element\ElementInterface;
 use Geomagilles\FlowGraph\GraphInterface;
 
@@ -54,33 +54,25 @@ interface BoxInterface extends ElementInterface
 
     /**
      * Gets all input points.
-     * @return Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface[]
+     * @return Geomagilles\FlowGraph\Points\InputPointInterface[]
      */
     public function getInputPoints();
     
     /**
      * Get input point by name.
      * @param string $name
-     * @return Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface
+     * @return Geomagilles\FlowGraph\Points\InputPointInterface
      * @throws \InvalidArgumentException
      */
     public function getInputPoint($name = '');
 
     /**
      * Adds an input point.
-     * @param Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface $point
+     * @param Geomagilles\FlowGraph\Points\InputPointInterface $point
      * @return self
      * @throws \LogicException
      */
     public function addInputPoint(InputPointInterface $point);
-
-    /**
-     * Create and add an input point
-     * @param string $name
-     * @return Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface
-     * @throws \LogicException
-     */
-    public function createInputPoint($name = '');
 
     /**
      * Has this box an output point of name $name?
@@ -91,68 +83,23 @@ interface BoxInterface extends ElementInterface
 
     /**
      * Gets all output points.
-     * @return Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface[]
+     * @return Geomagilles\FlowGraph\Points\OutputPointInterface[]
      */
     public function getOutputPoints();
 
     /**
      * Get output point by name.
      * @param string $name
-     * @return Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface
+     * @return Geomagilles\FlowGraph\Points\OutputPointInterface
      * @throws \InvalidArgumentException
      */
     public function getOutputPoint($name = '');
 
     /**
      * Adds an output point.
-     * @param Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface $point
+     * @param Geomagilles\FlowGraph\Points\OutputPointInterface $point
      * @throws \LogicException
      * @return self
      */
     public function addOutputPoint(OutputPointInterface $point);
-
-    /**
-     * Create and add an output point
-     * @param string $name
-     * @throws \LogicException
-     * @return Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface
-     */
-    public function createOutputPoint($name = '');
-
-    /**
-     * Has this box an trigger point of name $name?
-     * @param string $name
-     * @return boolean
-     */
-    public function hasTriggerPoint($name = '');
-
-    /**
-     * Gets all trigger points.
-     * @return Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface[]
-     */
-    public function getTriggerPoints();
-
-    /**
-     * Get trigger point by name.
-     * @param string $name
-     * @return Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface
-     * @throws \InvalidArgumentException
-     */
-    public function getTriggerPoint($name = '');
-
-    /**
-     * Adds an trigger point.
-     * @param Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface $point
-     * @return self
-     * @throws \LogicException
-     */
-    public function addTriggerPoint(TriggerPointInterface $point);
-
-    /**
-     * Create and add an trigger point
-     * @param string $name
-     * @return Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface
-     * @throws \LogicException
-     */
-    public function createTriggerPoint($name = '');
 }

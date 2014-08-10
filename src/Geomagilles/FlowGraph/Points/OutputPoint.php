@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Flow framework.
  *
@@ -9,8 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\PetriGraph\Exceptions;
+namespace Geomagilles\FlowGraph\Points;
 
-class TriggerNotFoundException extends \Exception
+use Geomagilles\FlowGraph\Points\Point;
+
+class OutputPoint extends Point implements OutputPointInterface
 {
 }

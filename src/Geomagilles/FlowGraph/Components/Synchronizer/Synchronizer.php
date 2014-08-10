@@ -11,8 +11,8 @@
 namespace Geomagilles\FlowGraph\Components\Synchronizer;
 
 use Geomagilles\FlowGraph\Box\Box;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Represents a synchronizer task in a graph.
@@ -21,7 +21,7 @@ class Synchronizer extends Box implements SynchronizerInterface
 {
     public function createIO()
     {
-        $this->createOutputPoint();
+        $this->addOutputPoint($this->factory->createOutputPoint());
     }
 
     public function input($name)

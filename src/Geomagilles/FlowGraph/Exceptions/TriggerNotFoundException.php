@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Flow framework.
  *
@@ -8,13 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Geomagilles\FlowGraph\Point\InputPoint;
+namespace Geomagilles\FlowGraph\Exceptions;
 
-use Geomagilles\FlowGraph\Point\Point;
-
-/**
- * Represents an input point.
- */
-class InputPoint extends Point implements InputPointInterface
+class TriggerNotFoundException extends \Exception
 {
 }

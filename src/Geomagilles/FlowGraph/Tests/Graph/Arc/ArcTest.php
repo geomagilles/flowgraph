@@ -20,8 +20,8 @@ class ArcTest extends BaseTest
 {
     public function testConstructor()
     {
-        $p1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $p2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $p1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $p2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $p1->expects($this->once())->method('addArc');
         $p2->expects($this->once())->method('addArc');
         $arc = new Arc($p1, $p2);
@@ -33,8 +33,8 @@ class ArcTest extends BaseTest
 
     public function testConstructorWithName()
     {
-        $p1 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
-        $p2 = $this->getMock('Geomagilles\FlowGraph\Point\PointInterface');
+        $p1 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
+        $p2 = $this->getMock('Geomagilles\FlowGraph\Points\PointInterface');
         $arc = new Arc($p1, $p2, 'myArc');
         $this->assertSame('myArc', $arc->getName());
     }

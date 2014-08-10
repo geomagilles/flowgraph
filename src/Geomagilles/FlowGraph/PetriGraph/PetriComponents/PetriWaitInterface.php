@@ -15,17 +15,5 @@ namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
  */
 interface PetriWaitInterface extends PetriTaskInterface
 {
-    /**
-     * Fire a trigger
-     * @param string $name 
-     */
-    public function fireTrigger($name);
 
-    /**
-     * Get trigger Petri transition by name
-     * @param string $name
-     * @throws \LogicException
-     * @return transitionInterface;
-     */
-    public function getTriggerTransition($name = '');
 }

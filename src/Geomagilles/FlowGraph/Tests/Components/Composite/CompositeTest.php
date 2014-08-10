@@ -196,8 +196,8 @@ class GraphTest extends BaseTest
     {
         $graph = $this->tearUp();
         $arc       = Mockery::mock('Geomagilles\FlowGraph\Arc\ArcInterface');
-        $input     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $output    = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $output    = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $begin     = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
         $end       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
@@ -271,8 +271,8 @@ class GraphTest extends BaseTest
     public function testAddArcWithoutOutputPoint()
     {
         $graph = $this->tearUp();
-        $input     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $output    = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $output    = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $begin     = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
         $end       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
@@ -299,8 +299,8 @@ class GraphTest extends BaseTest
     public function testAddArcWithoutInputPoint()
     {
         $graph = $this->tearUp();
-        $input   = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $output  = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input   = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $output  = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $begin   = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
         $end     = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
@@ -325,8 +325,8 @@ class GraphTest extends BaseTest
     {
         $graph = $this->tearUp();
         $arc       = Mockery::mock('Geomagilles\FlowGraph\Arc\ArcInterface');
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $output    = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $output    = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $begin     = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
         $end       = Mockery::mock('Geomagilles\FlowGraph\Components\Units\Synchronizer\SynchronizerInterface');
 
@@ -363,9 +363,9 @@ class GraphTest extends BaseTest
     public function testClonePoint()
     {
         $graph = $this->tearUp();
-        $clone     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $clone     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
 
         $this->factory
             ->shouldReceive('createPoint')
@@ -395,7 +395,7 @@ class GraphTest extends BaseTest
     public function testClonePointWithoutBox()
     {
         $graph = $this->tearUp();
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         
         $point
             ->shouldReceive('getComponent')
@@ -410,7 +410,7 @@ class GraphTest extends BaseTest
     public function testClonePointWithoutGraph()
     {
         $graph = $this->tearUp();
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
         
         $box
@@ -426,8 +426,8 @@ class GraphTest extends BaseTest
     public function testAddInputPoint()
     {
         $graph = $this->tearUp();
-        $clone     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $clone     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
         $clone->shouldReceive('getName');
@@ -461,8 +461,8 @@ class GraphTest extends BaseTest
     public function testAddOutputPoint()
     {
         $graph = $this->tearUp();
-        $clone     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
-        $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $clone     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
+        $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
         $clone->shouldReceive('getName');
@@ -503,9 +503,9 @@ class GraphTest extends BaseTest
     //public function testGetTransitionFromInputPoint()
     //{
     //    $graph = $this->tearUp();
-    //    $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+    //    $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
     //    $subBox    = Mockery::mock('Geomagilles\FlowGraph\Components\Component[getTransitionFromInputPoint]');
-    //    $subPoint  = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+    //    $subPoint  = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
     //
     //    $point
     //        ->shouldReceive('getSubjacentPoint')
@@ -528,9 +528,9 @@ class GraphTest extends BaseTest
     //public function testGetTransitionFromOutputPoint()
     //{
     //    $graph = $this->tearUp();
-    //    $point     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+    //    $point     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
     //    $subBox    = Mockery::mock('Geomagilles\FlowGraph\Components\Component[getTransitionFromOutputPoint]');
-    //    $subPoint  = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+    //    $subPoint  = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
     //
     //    $point
     //        ->shouldReceive('getSubjacentPoint')

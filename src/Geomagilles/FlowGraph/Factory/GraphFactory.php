@@ -11,30 +11,25 @@
 
 namespace Geomagilles\FlowGraph\Factory;
 
+use Illuminate\Support\Str;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-use Geomagilles\FlowGraph\Point\PointInterface;
+use Geomagilles\FlowGraph\Points\PointInterface;
 
 class GraphFactory implements GraphFactoryInterface
 {
     /**
-     * The Point type
+     * The Input Point type
      * @var string
      */
     const INPUT_POINT = 'INPUT';
 
     /**
-     * The Point type
+     * The Output Point type
      * @var string
      */
     const OUTPUT_POINT = 'OUTPUT';
-
-    /**
-     * The Point type
-     * @var string
-     */
-    const TRIGGER_POINT = 'TRIGGER';
 
     /**
      * The Arc type
@@ -89,9 +84,8 @@ class GraphFactory implements GraphFactoryInterface
         $this->eventDispatcher = is_null($eventDispatcher) ? new EventDispatcher() : $eventDispatcher;
 
         $this->typeClass = array(
-            self::INPUT_POINT   => 'Geomagilles\FlowGraph\Point\InputPoint\InputPoint',
-            self::OUTPUT_POINT  => 'Geomagilles\FlowGraph\Point\OutputPoint\OutputPoint',
-            self::TRIGGER_POINT => 'Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPoint',
+            self::INPUT_POINT   => 'Geomagilles\FlowGraph\Points\InputPoint',
+            self::OUTPUT_POINT  => 'Geomagilles\FlowGraph\Points\OutputPoint',
             self::ARC           => 'Geomagilles\FlowGraph\Arc\Arc',
             self::GRAPH         => 'Geomagilles\FlowGraph\Graph',
             self::BEGIN         => 'Geomagilles\FlowGraph\Components\Begin\Begin',
@@ -121,6 +115,42 @@ class GraphFactory implements GraphFactoryInterface
         return $object;
     }
     
+    /**
+     * Dynamically pass calls to the default connection.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     * @return mixed
+     */
+    //public function __call($method, $parameters)
+    //{
+    //    if (Str::startsWith($method, 'is')) {
+    //        $var = $this->getConstantName(substr($method, -2));
+    //        $obj = $parameters[0];
+    //        return $this->getType($obj) === self::$var;
+    //    } elseif (Str::startsWith($method, 'new')) {
+    //        $var = $this->getConstantName(substr($method, -3));
+    //        $name = count($parameters)==0 ? '' : $parameters[0];
+    //        return $this->newObject(self::$var, $name);
+    //    } elseif (Str::startsWith($method, 'create')) {
+    //        $var = $this->getConstantName(substr($method, -6));
+    //        $name = count($parameters)==0 ? '' : $parameters[0];
+    //        return $this->createObject(self::$var, $name);
+    //    } else {
+    //        throw new \Exception("Unknown method \"$method\" in ".__CLASS__);
+    //    }
+    //}
+
+    private function getConstantName($string)
+    {
+        $var = Str::upper(Str::snake($string));
+        if (isset($this->typeClass[$var])) {
+            return $var;
+        } else {
+            throw new \Exception("Unknown variable \"$var\" in ".__CLASS__);
+        }
+    }
+
     public function isArc($obj)
     {
         return $this->getType($obj) === self::ARC;
@@ -167,21 +197,6 @@ class GraphFactory implements GraphFactoryInterface
     public function createOutputPoint($name = '')
     {
         return $this->createObject(self::OUTPUT_POINT, $name);
-    }
- 
-    public function isTriggerPoint($obj)
-    {
-        return $this->getType($obj) === self::TRIGGER_POINT;
-    }
-
-    public function newTriggerPoint($name = '')
-    {
-        return $this->newObject(self::TRIGGER_POINT, $name);
-    }
-
-    public function createTriggerPoint($name = '')
-    {
-        return $this->createObject(self::TRIGGER_POINT, $name);
     }
 
     public function isGraph($obj)

@@ -11,8 +11,7 @@
 namespace Geomagilles\FlowGraph\Components\Task;
 
 use Geomagilles\FlowGraph\Box\Box;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\TriggerPoint\TriggerPointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
 
 /**
  * Class representing an task box.
@@ -27,8 +26,8 @@ class Task extends Box implements TaskInterface
     
     public function createIO()
     {
-        $this->createInputPoint();
-        $this->withOutput(TaskInterface::OUTPUT_RETRY);
+        $this->addInputPoint($this->factory->createInputPoint());
+        $this->addOutputPoint($this->factory->createOutputPoint(TaskInterface::OUTPUT_RETRY));
     }
 
     public function addInputPoint(InputPointInterface $point)
@@ -37,14 +36,6 @@ class Task extends Box implements TaskInterface
             throw new \LogicException(sprintf('You can NOT add a new input to a task box "%s"', $this->getName()));
         }
         return parent::addInputPoint($point);
-    }
-
-    public function addTriggerPoint(TriggerPointInterface $point)
-    {
-        if (get_class($this) == __CLASS__) {
-            throw new \LogicException(sprintf('You can NOT add a trigger to a task box "%s"', $this->getName()));
-        }
-        return parent::addTriggerPoint($point);
     }
 
     public function hasJob()

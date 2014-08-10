@@ -11,8 +11,8 @@
 namespace Geomagilles\FlowGraph\Components\Wait;
 
 use Geomagilles\FlowGraph\Components\Task\Task;
-use Geomagilles\FlowGraph\Point\InputPoint\InputPointInterface;
-use Geomagilles\FlowGraph\Point\OutputPoint\OutputPointInterface;
+use Geomagilles\FlowGraph\Points\InputPointInterface;
+use Geomagilles\FlowGraph\Points\OutputPointInterface;
 
 /**
  * Class representing an wait box.
@@ -33,15 +33,7 @@ class Wait extends Task implements WaitInterface
         return parent::addInputPoint($point);
     }
 
-    public function addOutputPoint(OutputPointInterface $point)
-    {
-        if (count($this->getOutputPoints()) == 2) {
-            throw new \LogicException(sprintf('You can NOT add a new output to a wait box "%s"', $this->getName()));
-        }
-        return parent::addOutputPoint($point);
-    }
-
-    public function withTrigger($name = '', $transient = true)
+    public function withTrigger($event, $job, array $settings)
     {
         // new trigger point
         $this->createTriggerPoint($name)->setSettings(array(WaitInterface::TRIGGER_TRANSIENT=>$transient));

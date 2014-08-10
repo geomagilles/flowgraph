@@ -29,7 +29,7 @@ class FlowGraphTest extends BaseTest
     public function testAddArcFromBegin()
     {
         $flowchart =  new FlowGraph();
-        $input     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
         $box
@@ -57,7 +57,7 @@ class FlowGraphTest extends BaseTest
     public function testAddArcToEnd()
     {
         $flowchart =  new FlowGraph();
-        $output    = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $output    = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
         $box       = Mockery::mock('Geomagilles\FlowGraph\Components\ComponentInterface');
 
         $box
@@ -88,7 +88,7 @@ class FlowGraphTest extends BaseTest
     public function testAddInputPoint()
     {
         $flowchart =  new FlowGraph();
-        $input     = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $input     = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
 
         $flowchart->addInputPoint($input);
     }
@@ -99,7 +99,7 @@ class FlowGraphTest extends BaseTest
     public function testAddOutputPoint()
     {
         $flowchart =  new FlowGraph();
-        $output    = Mockery::mock('Geomagilles\FlowGraph\Point\PointInterface');
+        $output    = Mockery::mock('Geomagilles\FlowGraph\Points\PointInterface');
 
         $flowchart->addOutputPoint($output);
     }
