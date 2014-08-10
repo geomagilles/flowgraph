@@ -15,7 +15,9 @@ use Geomagilles\FlowGraph\GraphInterface;
 
 class GraphEvent extends Event implements GraphEventInterface
 {
-    const STATE_UPDATED = 'Geomagilles\FlowGraph.GraphEvent.STATE_UPDATED';
+    const ENGINE_START = 'Geomagilles\FlowGraph.GraphEvent.ENGINE_START';
+
+    const ENGINE_STOP = 'Geomagilles\FlowGraph.GraphEvent.ENGINE_STOP';
     
     const BEGIN = 'Geomagilles\FlowGraph.GraphEvent.BEGIN';
     

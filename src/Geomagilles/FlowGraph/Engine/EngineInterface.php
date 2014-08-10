@@ -16,12 +16,6 @@ use Geomagilles\FlowGraph\PetriGraph\PetriBox\PetriBoxInterface;
 interface EngineInterface
 {
     public function getPetriGraph();
-
-    /**
-     * Sets the execution mode.
-     * @param integer $mode The execution mode
-     */
-    public function setMode($mode);
     
     public function resetState();
 

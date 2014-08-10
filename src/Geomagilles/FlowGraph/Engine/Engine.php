@@ -30,27 +30,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Engine implements EngineInterface
 {
     /**
-     * Continuous mode.
-     * Transitions are fired until there are no more enabled.
-     * @var integer
-     */
-    const MODE_CONTINUOUS = 0;
-
-    /**
-     * Stepped mode.
-     * The currently enabled transitions are fired
-     * and the engine is stopped.
-     * @var integer
-     */
-    const MODE_STEPPED = 1;
-
-    /**
-     * The execution mode.
-     * @var integer
-     */
-    protected $mode = self::MODE_CONTINUOUS;
-
-    /**
      * The graph.
      * @var GraphInterface
      */
@@ -102,7 +81,7 @@ class Engine implements EngineInterface
         $dispatcher->addListener(PetrinetEvents::BEFORE_TOKEN_CONSUME, array($this, 'beforeTokenConsume'));
         $dispatcher->addListener(PetrinetEvents::BEFORE_TRANSITION_FIRE, array($this, 'beforeTransitionFire'));
         $dispatcher->addListener(PetrinetEvents::AFTER_TRANSITION_FIRE, array($this, 'afterTransitionFire'));
-        $dispatcher->addListener(PetrinetEvents::AFTER_ENGINE_STOP, array($this, 'afterEngineStop'));
+        $dispatcher->addListener(PetrinetEvents::AFTER_ENGINE_STOP, array($this, 'engineStop'));
     }
 
     public function setGraph(GraphInterface $graph)
@@ -152,16 +131,6 @@ class Engine implements EngineInterface
         return  $this->data;
     }
 
-    public function setMode($mode)
-    {
-        if (self::MODE_CONTINUOUS !== $mode && self::MODE_STEPPED !== $mode) {
-            throw new \InvalidArgumentException(sprintf('Invalid execution mode "%s" specified', $mode));
-        }
-        $this->mode = $mode;
-
-        return $this;
-    }
-
     public function fireOutput($boxId, $name)
     {
         $petriBox = $this->petriGraph->getPetriBoxById($boxId);
@@ -170,23 +139,11 @@ class Engine implements EngineInterface
     
     public function run()
     {
-        if ($this->mode === self::MODE_CONTINUOUS) {
-            $this->engine->setMode(PetrinetEngine::MODE_CONTINUOUS);
-            $this->engine->start();
-        } elseif ($this->mode === self::MODE_STEPPED) {
-            $this->engine->setMode(PetrinetEngine::MODE_STEPPED);
-            // petri engine loops until engine stopped or after a box
-            $modifiedState = false;
-            $modifyState = function () use (&$modifiedState) {
-                $modifiedState = true;
-            };
-            $this->dispatcher->addListener(GraphEvent::STATE_UPDATED, $modifyState);
-
-            $this->engine->getState()->start();
-            while (! $modifiedState) {
-                $this->engine->getState()->step();
-            }
-        }
+        // dispatch ENGINE_START event
+        $this->engineStart()
+        // run engine
+        $this->engine->setMode(PetrinetEngine::MODE_CONTINUOUS);
+        $this->engine->start();
     }
 
     public function beforeTokenConsume(PlaceEvent $event)
@@ -240,10 +197,16 @@ class Engine implements EngineInterface
             $this->dispatcher->dispatch(BoxEvent::AFTER_JOB, $boxEvent);
         }
     }
-    
-    public function afterEngineStop(EngineEvent $event)
+
+    public function engineStart()
     {
         $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
-        $this->dispatcher->dispatch(GraphEvent::STATE_UPDATED, $graphEvent);
+        $this->dispatcher->dispatch(GraphEvent::ENGINE_START, $graphEvent);
+    }
+
+    public function engineStop(EngineEvent $event)
+    {
+        $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
+        $this->dispatcher->dispatch(GraphEvent::ENGINE_STOP, $graphEvent);
     }
 }
