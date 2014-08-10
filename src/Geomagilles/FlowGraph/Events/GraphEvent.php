@@ -19,9 +19,14 @@ class GraphEvent extends Event implements GraphEventInterface
 
     const ENGINE_STOP = 'Geomagilles\FlowGraph.GraphEvent.ENGINE_STOP';
     
-    const BEGIN = 'Geomagilles\FlowGraph.GraphEvent.BEGIN';
+    const BEGIN_REACH = 'Geomagilles\FlowGraph.GraphEvent.BEGIN_REACH';
     
-    const END   = 'Geomagilles\FlowGraph.GraphEvent.END';
+    const END_REACH   = 'Geomagilles\FlowGraph.GraphEvent.END_REACH';
+
+    const BEFORE_BOX = 'Geomagilles\FlowGraph.GraphEvent.BEFORE_BOX';
+
+    const AFTER_BOX = 'Geomagilles\FlowGraph.GraphEvent.AFTER_BOX';
+
     /**
      * The graph.
      */

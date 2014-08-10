@@ -19,10 +19,6 @@ class BoxEvent extends Event implements BoxEventInterface
 
     const AFTER_JOB = 'Geomagilles\FlowGraph.BoxEvent.AFTER_JOB';
 
-    const BEFORE_BOX = 'Geomagilles\FlowGraph.BoxEvent.BEFORE_BOX';
-
-    const AFTER_BOX = 'Geomagilles\FlowGraph.BoxEvent.AFTER_BOX';
-
     /**
      * The box.
      */

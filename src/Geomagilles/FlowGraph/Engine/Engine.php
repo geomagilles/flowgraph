@@ -151,7 +151,7 @@ class Engine implements EngineInterface
         // begin case
         if ($event->getPlace()->isBegin()) {
             $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
-            $this->dispatcher->dispatch(GraphEvent::BEGIN, $graphEvent);
+            $this->dispatcher->dispatch(GraphEvent::BEGIN_REACH, $graphEvent);
         }
     }
 
@@ -160,7 +160,7 @@ class Engine implements EngineInterface
         // end case
         if ($event->getPlace()->isEnd()) {
             $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
-            $this->dispatcher->dispatch(GraphEvent::END, $graphEvent);
+            $this->dispatcher->dispatch(GraphEvent::END_REACH, $graphEvent);
         }
     }
 
@@ -170,8 +170,8 @@ class Engine implements EngineInterface
 
         // input case
         if ($transition->isInput()) {
-            $boxEvent = new BoxEvent($transition->getBox(), $this->data);
-            $this->dispatcher->dispatch(BoxEvent::BEFORE_BOX, $boxEvent);
+            $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
+            $this->dispatcher->dispatch(GraphEvent::BEFORE_BOX, $graphEvent);
         }
 
         // job case
@@ -187,8 +187,8 @@ class Engine implements EngineInterface
         
         // output case
         if ($transition->isOutput()) {
-            $boxEvent = new BoxEvent($transition->getBox(), $this->data);
-            $this->dispatcher->dispatch(BoxEvent::AFTER_BOX, $boxEvent);
+            $graphEvent = new GraphEvent($this->graph, $this->petriGraph->getState(), $this->data);
+            $this->dispatcher->dispatch(GraphEvent::AFTER_BOX, $graphEvent);
         }
 
         // job case
