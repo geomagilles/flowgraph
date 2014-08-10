@@ -178,17 +178,6 @@ abstract class Box extends Element implements BoxInterface
         return false;
     }
 
-    public function addPoint(PointInterface $point)
-    {
-        if ($point->isInput()) {
-            return $this->addInputPoint($point);
-        } elseif ($point->isOutput()) {
-            return $this->addOutputPoint($point);
-        } else {
-            throw new \Exception('Unkwnown point type');
-        }
-    }
-
     public function input($name)
     {
         return array($this, $this->getInputPoint($name));
