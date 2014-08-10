@@ -11,7 +11,6 @@
 
 namespace Geomagilles\FlowGraph\PetriGraph\PetriComponents;
 
-use Geomagilles\FlowGraph\Exceptions\TriggerNotFoundException;
 use Geomagilles\FlowGraph\Components\Wait\WaitInterface;
 use Geomagilles\FlowGraph\PetriGraph\factory\PetriBoxFactoryInterface;
 

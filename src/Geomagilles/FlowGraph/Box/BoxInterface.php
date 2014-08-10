@@ -12,7 +12,6 @@ namespace Geomagilles\FlowGraph\Box;
 
 use Geomagilles\FlowGraph\Points\InputPointInterface;
 use Geomagilles\FlowGraph\Points\OutputPointInterface;
-use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 use Geomagilles\FlowGraph\Element\ElementInterface;
 use Geomagilles\FlowGraph\GraphInterface;
 

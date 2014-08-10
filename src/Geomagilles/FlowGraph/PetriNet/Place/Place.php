@@ -34,12 +34,6 @@ class Place extends \Petrinet\Place\Place implements PlaceInterface
     protected $isOutput= false;
 
     /**
-     * Is this place a trigger?
-     * @var boolean
-     */
-    protected $isTrigger = false;
-
-    /**
      * The box owning this Place
      * @var ComponentInterface
      */
@@ -96,20 +90,6 @@ class Place extends \Petrinet\Place\Place implements PlaceInterface
             throw new \InvalidArgumentException('$isOutput MUST be a boolean');
         }
         $this->isOutput = $isOutput;
-        return $this;
-    }
-
-    public function isTrigger()
-    {
-        return $this->isTrigger;
-    }
-
-    public function setTrigger($isTrigger = true)
-    {
-        if (! is_bool($isTrigger)) {
-            throw new \InvalidArgumentException('$isTrigger MUST be a boolean');
-        }
-        $this->isTrigger = $isTrigger;
         return $this;
     }
 }

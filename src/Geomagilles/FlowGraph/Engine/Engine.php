@@ -15,7 +15,6 @@ use Geomagilles\FlowGraph\PetriGraph\Factory\PetriBoxFactory;
 use Geomagilles\FlowGraph\PetriGraph\Factory\PetriBoxFactoryInterface;
 use Geomagilles\FlowGraph\Events\GraphEvent;
 use Geomagilles\FlowGraph\Events\BoxEvent;
-use Geomagilles\FlowGraph\Events\TriggerEvent;
 
 use Petrinet\Engine\Engine as PetrinetEngine;
 use Petrinet\Engine\EngineInterface as PetrinetEngineInterface;
@@ -167,12 +166,6 @@ class Engine implements EngineInterface
     {
         $petriBox = $this->petriGraph->getPetriBoxById($boxId);
         $petriBox->fireOutput($name);
-    }
-
-    public function fireTrigger($boxId, $name)
-    {
-        $petriBox = $this->petriGraph->getPetriBoxById($boxId);
-        $petriBox->fireTrigger($name);
     }
     
     public function run()

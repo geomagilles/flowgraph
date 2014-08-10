@@ -12,7 +12,6 @@ namespace Geomagilles\FlowGraph\Components\Synchronizer;
 
 use Geomagilles\FlowGraph\Box\Box;
 use Geomagilles\FlowGraph\Points\OutputPointInterface;
-use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Represents a synchronizer task in a graph.
@@ -35,10 +34,5 @@ class Synchronizer extends Box implements SynchronizerInterface
             throw new \LogicException(sprintf('You can NOT add a new output to a synchronizer box "%s"', $this->getName()));
         }
         return parent::addOutputPoint($point);
-    }
-
-    public function addTriggerPoint(TriggerPointInterface $point)
-    {
-        throw new \LogicException(sprintf('You can NOT add a trigger to a synchronizer box "%s"', $this->getName()));
     }
 }

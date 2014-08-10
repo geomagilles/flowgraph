@@ -52,11 +52,7 @@ class PetriGraph extends PetriBox implements PetriGraphInterface
             $input = $arc->getEndPoint();
             $end = $input->getBox();
             // add Petri arc
-            if ($output->isOutput()) {
-                $transition = $this->petriBoxes[$begin->getName()]->getOutputTransition($output->getName());
-            } elseif ($output->isTrigger()) {
-                $transition = $this->petriBoxes[$begin->getName()]->getTriggerTransition($output->getName());
-            }
+            $transition = $this->petriBoxes[$begin->getName()]->getOutputTransition($output->getName());
             $place = $this->places[$end->getName()][$input->getName()];
             $this->petri->addArc($transition, $place)->setBox($graph);
         }

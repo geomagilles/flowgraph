@@ -26,8 +26,4 @@ interface PlaceInterface extends \Petrinet\Place\PlaceInterface
     public function isEnd();
 
     public function setEnd($isEnd);
-
-    public function isTrigger();
-
-    public function setTrigger($isTrigger);
 }

@@ -42,12 +42,6 @@ class Transition extends \Petrinet\Transition\Transition implements TransitionIn
     protected $output = null;
 
     /**
-     * The trigger point (if any)
-     * @var PointInterface
-     */
-    protected $trigger = null;
-
-    /**
      * The box owning this transition
      * @var BoxInterface
      */
@@ -83,23 +77,6 @@ class Transition extends \Petrinet\Transition\Transition implements TransitionIn
     public function setOutput(PointInterface $output)
     {
         $this->output = $output;
-
-        return $this;
-    }
-
-    public function isTrigger()
-    {
-        return (! is_null($this->trigger));
-    }
-
-    public function getTrigger()
-    {
-        return $this->trigger;
-    }
-
-    public function setTrigger(PointInterface $trigger)
-    {
-        $this->trigger = $trigger;
 
         return $this;
     }

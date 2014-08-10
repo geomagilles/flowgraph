@@ -16,7 +16,6 @@ use Geomagilles\FlowGraph\Arc\ArcInterface;
 use Geomagilles\FlowGraph\Points\PointInterface;
 use Geomagilles\FlowGraph\Points\InputPointInterface;
 use Geomagilles\FlowGraph\Points\OutputPointInterface;
-use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Class representing a sub-network of a FlowGraph.
@@ -147,13 +146,6 @@ class Graph extends Box implements GraphInterface
     {
         if ($point->checkPoint($point)) {
             parent::addOutputPoint($point);
-        }
-    }
-
-    public function addTriggerPoint(TriggerPointInterface $point)
-    {
-        if ($point->checkPoint($point)) {
-            parent::addTriggerPoint($point);
         }
     }
 

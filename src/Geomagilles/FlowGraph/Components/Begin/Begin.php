@@ -13,7 +13,6 @@ namespace Geomagilles\FlowGraph\Components\Begin;
 use Geomagilles\FlowGraph\Box\Box;
 use Geomagilles\FlowGraph\Points\InputPointInterface;
 use Geomagilles\FlowGraph\Points\OutputPointInterface;
-use Geomagilles\FlowGraph\Points\TriggerPoint\TriggerPointInterface;
 
 /**
  * Represents a begin task in a graph.
@@ -36,10 +35,5 @@ class Begin extends Box implements BeginInterface
     public function addInputPoint(InputPointInterface $point)
     {
         throw new \LogicException(sprintf('You can NOT add an input to a begin box "%s"', $this->getName()));
-    }
-
-    public function addTriggerPoint(TriggerPointInterface $point)
-    {
-        throw new \LogicException(sprintf('You can NOT add a trigger to a begin box "%s"', $this->getName()));
     }
 }
